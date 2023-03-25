@@ -8,6 +8,8 @@ export default class PodcasterApi extends ApiConfig implements IPodcasterApi {
   }
 
   async getPodcast(id: number): Promise<ApiResponse<PodcastResponse>> {
-    return this.axios.get(`${this.path}/lookup?${id}&media=podcast&entity=podcastEpisode&limit=20`);
+    return this.axios.get(
+      `${this.path}/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=20`
+    );
   }
 }
