@@ -1,14 +1,17 @@
+import {BrowserRouter} from 'react-router-dom';
 import {PodcasterProvider} from '../infrastructure/PodcastContextProvider';
 import Layout from './layout/Layout';
-import PodcastsView from './pages/PodcastsView';
+import Router from './router/Router';
 
 function App() {
   return (
-    <Layout>
-      <PodcasterProvider>
-        <PodcastsView />
-      </PodcasterProvider>
-    </Layout>
+    <BrowserRouter>
+      <Layout>
+        <PodcasterProvider>
+          <Router />
+        </PodcasterProvider>
+      </Layout>
+    </BrowserRouter>
   );
 }
 
