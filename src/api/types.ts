@@ -1,12 +1,12 @@
 import {AxiosResponse} from 'axios';
 
-type DataResponse<D, M> = {
+type DataResponse<D> = {
   feed: {
     entry: D;
   };
 };
 
-export type ApiResponse<D, M = []> = AxiosResponse<DataResponse<D, M>>;
+export type ApiResponse<D> = AxiosResponse<DataResponse<D>>;
 type LabelType = {
   label: string;
 };
@@ -24,7 +24,7 @@ type AttributesType = {
   scheme: string;
 };
 
-type ImageType = LabelType & {
+export type ImageType = LabelType & {
   attributes: Pick<AttributesType, 'height'>;
 };
 
