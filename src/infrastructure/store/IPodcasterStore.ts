@@ -1,4 +1,4 @@
-import {Podcast} from '../../domain/Podcast';
+import Podcast from '../../domain/Podcast';
 
 export interface IPodcastStore {
   readonly podcasts: readonly Podcast[];

@@ -1,4 +1,4 @@
-import {Podcast} from '../../../domain/Podcast';
+import Podcast from '../../../domain/Podcast';
 
 function PodcastCard({podcast}: {podcast: Podcast}) {
   return (
