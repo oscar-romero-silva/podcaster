@@ -5,6 +5,14 @@ type ImgType = {
   height: number;
 };
 
+function findBestImg(array: ImgType[]): string | null {
+  if (array.length === 0) {
+    return null;
+  }
+  return array.reduce((bestImage, image) => (bestImage.height > image.height ? bestImage : image))
+    .url;
+}
+
 export default class Podcast {
   protected readonly podcast: PodcastResponse;
 
@@ -16,10 +24,11 @@ export default class Podcast {
     return this.podcast['im:name'].label || '';
   }
 
-  get img(): ImgType[] {
-    return this.podcast['im:image'].map((img: ImageType) => {
+  get img(): string | null {
+    const imgs = this.podcast['im:image'].map((img: ImageType) => {
       return {url: img.label, height: Number(img.attributes.height)};
     });
+    return findBestImg(imgs);
   }
 
   get summary(): string {
