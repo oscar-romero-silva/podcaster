@@ -5,7 +5,7 @@ import usePodcasterStore from './store/usePodcasterStore';
 
 const PodcasterContext = createContext<IPodcastStore | undefined>(undefined);
 
-PodcasterContext.displayName = 'AnnouncementsProvider';
+PodcasterContext.displayName = 'PodcasterProvider';
 
 type ContextProviderProps = {
   children: ReactNode;
@@ -17,7 +17,8 @@ function PodcasterProvider({children}: ContextProviderProps) {
 
   useEffect(() => {
     store.getAllPodcasts();
-  }, [store]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <PodcasterContext.Provider value={store}>{children}</PodcasterContext.Provider>;
 }
