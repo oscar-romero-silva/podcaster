@@ -6,7 +6,13 @@ type DataResponse<D> = {
   };
 };
 
-export type ApiResponse<D> = AxiosResponse<DataResponse<D>>;
+export type PodcastsApiResponse<D> = AxiosResponse<DataResponse<D>>;
+
+type EpisodeDataResponse<D> = {
+  results: D;
+};
+
+export type EpisodeApiResponse<D> = AxiosResponse<EpisodeDataResponse<D>>;
 type LabelType = {
   label: string;
 };
@@ -65,4 +71,11 @@ export type PodcastResponse = {
   'im:artist': LabelType;
   category: CategoryType;
   'im:releaseDate': ReleaseDateType;
+};
+
+export type EpisodeResponse = {
+  trackName: string;
+  releaseDate: string;
+  trackTimeMillis: number;
+  trackViewUrl: string;
 };

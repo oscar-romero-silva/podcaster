@@ -1,8 +1,7 @@
-import {ApiResponse, PodcastResponse} from './types';
+import {PodcastsApiResponse, PodcastResponse, EpisodeApiResponse, EpisodeResponse} from './types';
 
 export interface IPodcasterApi {
-  getAllPodcasts(): Promise<ApiResponse<PodcastResponse[]>>;
+  getAllPodcasts(): Promise<PodcastsApiResponse<PodcastResponse[]>>;
 
-  // TODO: fix this
-  getPodcast(id: number): Promise<ApiResponse<PodcastResponse>>;
+  getPodcast(id: number): Promise<EpisodeApiResponse<EpisodeResponse[]>>;
 }

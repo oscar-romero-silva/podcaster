@@ -1,4 +1,4 @@
-import {PodcastResponse, ImageType} from '../api/types';
+import {ImageType, PodcastResponse} from '@/api/types';
 
 type ImgType = {
   url: string;
