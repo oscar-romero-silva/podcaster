@@ -12,4 +12,9 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/setupTest.ts'],
   },
+  resolve: {
+    alias: {
+      '@/': new URL('./src/', import.meta.url).pathname,
+    },
+  },
 });
