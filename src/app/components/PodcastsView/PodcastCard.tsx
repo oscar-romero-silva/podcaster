@@ -10,11 +10,13 @@ function PodcastCard({podcast}: PodcastCardProps) {
   return (
     <Link
       to={`/podcast/${podcast.id}`}
-      className="px-8 py-4 mt-28 bg-white rounded-lg shadow-custom hover:shadow-custom-xl md:w-1/4 sm:w-1/3 lg:w-1/5 w-[365px] min-w-[343px] scale-100 hover:scale-105 transition duration-300 ease-in-out "
+      className="p-4 mt-28 bg-white rounded-lg 
+      shadow-custom hover:shadow-custom-xl scale-100 hover:scale-105 
+      transition duration-300 ease-in-out w-full md:w-1/5 mx-2 min-w-[343px]"
     >
-      <div className="flex justify-center -mt-24 ">
+      <div className="flex justify-center -mt-24">
         <img
-          className="object-cover h-48 w-48 rounded-full"
+          className="object-cover h-44 w-44 rounded-full"
           alt="Podcast Avatar"
           loading="lazy"
           src={img}
