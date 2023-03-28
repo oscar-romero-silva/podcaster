@@ -9,6 +9,7 @@ function Header() {
           src="../../../public/podcastIcon.ico"
           alt="podcaster-icon"
           width="30px"
+          height="30px"
           className="object-fill rounded-md"
         />
         <h1 className="text-xl font-bold">Podcaster</h1>

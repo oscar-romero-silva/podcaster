@@ -15,6 +15,9 @@ function PodcastDetailsView() {
   return (
     <DetailsLayout podcast={podcast}>
       <div>
+        <div className="flex items-center w-full h-12 shadow-custom mb-6 p-4">
+          <h1 className="text-2xl font-bold">Episodes: {podcastEpisodes.length}</h1>
+        </div>
         <EpisodesTable
           headings={[
             {value: 'Title', id: 'name', url: 'episodeTrackUrl'},

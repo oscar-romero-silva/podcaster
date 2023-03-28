@@ -9,11 +9,11 @@ type LayoutProps = {
 
 function DetailsLayout({children, podcast}: LayoutProps) {
   return (
-    <div className="flex flex-col md:flex-row h-screen gap-y-10 md:gap-20">
-      <div className="md:w-1/5 w-full">
+    <div className="flex flex-col lg:flex-row h-screen gap-y-10 lg:gap-20">
+      <div className="lg:w-1/5 w-full">
         <PodcastCardDetails podcast={podcast} />
       </div>
-      <div className="md:w-4/5 w-ful">{children}</div>
+      <div className="lg:w-4/5 w-ful">{children}</div>
     </div>
   );
 }

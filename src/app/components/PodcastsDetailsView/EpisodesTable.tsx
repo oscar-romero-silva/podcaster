@@ -35,7 +35,7 @@ function EpisodesTable({headings, data}: TableProps) {
         <thead className="bg-white">
           <tr className="text-left bg-white-100">
             {headings.map(heading => (
-              <th className={`${heading.id === headings[0].id && 'w-4/5 '}`} key={heading.id}>
+              <th className={`px-2 ${heading.id === headings[0].id && 'w-4/5'}`} key={heading.id}>
                 {heading.value}
               </th>
             ))}
@@ -49,7 +49,7 @@ function EpisodesTable({headings, data}: TableProps) {
             >
               {headings.map(heading => (
                 <td
-                  className={`${heading.id === headings[0].id && 'w-4/5 py-1 px-2'}`}
+                  className={`px-2 ${heading.id === headings[0].id && 'w-4/5 py-1'}`}
                   key={heading.id}
                 >
                   {heading.url ? (
