@@ -1,19 +1,19 @@
 import {format, intervalToDuration} from 'date-fns';
-import {Link} from 'react-router-dom';
 
 type HeadingType = {
   id: string;
   value: string;
-  url?: string;
 };
 
-interface TableProps {
+type TableProps = {
   headings: HeadingType[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: Record<string, any>[];
-}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onTitleClick: (item: any) => void;
+};
 
-function EpisodesTable({headings, data}: TableProps) {
+function EpisodesTable({headings, data, onTitleClick}: TableProps) {
   const formatRow = (value: Date | number | string) => {
     if (value instanceof Date) {
       return format(value, 'dd/MM/yyyy');
@@ -27,6 +27,11 @@ function EpisodesTable({headings, data}: TableProps) {
       return `${hours}:${minutes}:${seconds}`;
     }
     return value;
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onClick = (item: any) => {
+    onTitleClick(item);
   };
 
   return (
@@ -49,13 +54,13 @@ function EpisodesTable({headings, data}: TableProps) {
             >
               {headings.map(heading => (
                 <td
-                  className={`px-2 ${heading.id === headings[0].id && 'w-4/5 py-1'}`}
+                  className={`px-2 py-1 ${heading.id === headings[0].id && 'w-4/5'}`}
                   key={heading.id}
                 >
-                  {heading.url ? (
-                    <Link className="text-sky-700" role="link" to={row[heading.url]}>
+                  {heading.id === headings[0].id ? (
+                    <button className=" text-sky-700" type="button" onClick={() => onClick(row)}>
                       {formatRow(row[heading.id])}
-                    </Link>
+                    </button>
                   ) : (
                     formatRow(row[heading.id])
                   )}
