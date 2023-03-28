@@ -11,7 +11,7 @@ function PodcastDetailsView() {
   useEffect(() => {
     getPodcast(Number(podcastId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [podcastId, podcast]);
+  }, [podcastId]);
   return (
     <DetailsLayout podcast={podcast}>
       <div>
