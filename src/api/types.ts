@@ -74,8 +74,11 @@ export type PodcastResponse = {
 };
 
 export type EpisodeResponse = {
+  trackId: number;
+  description: string;
   trackName: string;
   releaseDate: string;
   trackTimeMillis: number;
   trackViewUrl: string;
+  episodeUrl: string;
 };

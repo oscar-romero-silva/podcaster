@@ -7,6 +7,14 @@ export default class Episode {
     this.episode = episode;
   }
 
+  get id(): number {
+    return this.episode.trackId;
+  }
+
+  get description(): string {
+    return this.episode.description || '';
+  }
+
   get name(): string {
     return this.episode.trackName || '';
   }
@@ -20,6 +28,6 @@ export default class Episode {
   }
 
   get episodeTrackUrl(): string {
-    return this.episode.trackViewUrl || '';
+    return this.episode.episodeUrl || '';
   }
 }

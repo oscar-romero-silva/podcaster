@@ -10,7 +10,11 @@ export interface IPodcastStore {
 
   readonly podcastEpisodes: Episode[];
 
+  readonly episode: Episode | null;
+
   getAllPodcasts: () => Promise<void>;
 
   getPodcast: (id: number) => Promise<void>;
+
+  getEpisode: (id: number) => Promise<void>;
 }
