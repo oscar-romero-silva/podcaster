@@ -53,7 +53,7 @@ function EpisodesTable({headings, data}: TableProps) {
                   key={heading.id}
                 >
                   {heading.url ? (
-                    <Link className="text-blue-500" role="link" to={row[heading.url]}>
+                    <Link className="text-sky-700" role="link" to={row[heading.url]}>
                       {formatRow(row[heading.id])}
                     </Link>
                   ) : (
