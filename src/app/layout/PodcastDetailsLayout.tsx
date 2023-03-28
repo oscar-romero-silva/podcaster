@@ -2,10 +2,11 @@ import {Outlet, useMatch, useNavigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {usePodcasterContext} from '@/infrastructure/PodcastContextProvider';
 import PodcastCardDetails from '../components/PodcastsDetailsView/PodcastCardDetails';
+import Loading from '../components/Loading';
 
 function PodcastDetailsLayout() {
   const {podcastId} = useParams();
-  const {getPodcast, podcast} = usePodcasterContext();
+  const {getPodcast, podcast, loading} = usePodcasterContext();
 
   useEffect(() => {
     getPodcast(Number(podcastId));
@@ -20,7 +21,9 @@ function PodcastDetailsLayout() {
     }
   };
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="flex flex-col lg:flex-row h-screen gap-y-10 lg:gap-20">
       <div className="lg:w-1/5 w-full">
         <PodcastCardDetails podcast={podcast} onClick={() => navigateBack()} />

@@ -5,7 +5,7 @@ function AppLayout() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-1 p-5 md:p-10">
+      <main className="flex-1 m-5 md:m-10">
         <Outlet />
       </main>
     </div>
