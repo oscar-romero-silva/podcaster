@@ -1,30 +1,34 @@
 import {createBrowserRouter} from 'react-router-dom';
-import PodcastsView from '../pages/PodcastsView';
 import PageNotFound from '../pages/PageNotFound';
 import PodcastDetailsView from '../pages/PodcastDetailsView';
-import Layout from '../layout/Layout';
+import AppLayout from '../layout/AppLayout';
 import EpisodeDetailsView from '../pages/EpisodeDetailsView';
+import PodcastDetailsLayout from '../layout/PodcastDetailsLayout';
+import PodcastsView from '../pages/PodcastsView';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <AppLayout />,
     errorElement: <PageNotFound />,
     children: [
       {
         index: true,
-        id: 'index',
         element: <PodcastsView />,
       },
       {
-        id: 'podcast',
-        path: 'podcast/:podcastId',
-        element: <PodcastDetailsView />,
-      },
-      {
-        id: 'episode',
-        path: 'podcast/:podcastId/episode/:episodeId',
-        element: <EpisodeDetailsView />,
+        path: '/podcast/:podcastId',
+        element: <PodcastDetailsLayout />,
+        children: [
+          {
+            index: true,
+            element: <PodcastDetailsView />,
+          },
+          {
+            path: '/podcast/:podcastId/episode/:episodeId',
+            element: <EpisodeDetailsView />,
+          },
+        ],
       },
     ],
   },
