@@ -12,8 +12,8 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
   const [podcastEpisodes, setPodcastEpisodes] = useState<Episode[]>([]);
 
   const [loading, setLoading] = useState(false);
-  const canFetch = () => {
-    const savedPodcasts = JSON.parse(localStorage.getItem('podcasts') as string);
+  const canFetch = (dataToFetch: string) => {
+    const savedPodcasts = JSON.parse(localStorage.getItem(dataToFetch) as string);
     if (savedPodcasts) {
       const actualDate = new Date();
       const savedDate = new Date(savedPodcasts.savedDate);
@@ -38,7 +38,7 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
   };
 
   const getAllPodcasts = async () => {
-    if (canFetch()) {
+    if (canFetch('podcasts')) {
       setLoading(true);
       try {
         const {data} = await api.getAllPodcasts();
@@ -55,12 +55,7 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
     updateToPodcast(JSON.parse(localStorage.getItem('podcasts') as string).podcasts);
   };
 
-  const getPodcast = async (id: number) => {
-    const podcastResult = findPodcast(id);
-
-    if (podcastResult) {
-      setPodcast(findPodcast(id));
-    }
+  const fetchEpisodes = async (id: number) => {
     try {
       const {data} = await api.getPodcast(id);
       const episodes = data.results.map(e => new Episode(e));
@@ -68,6 +63,24 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
     } catch (error) {
       throw new Error(error as string);
     }
+  };
+
+  const getPodcast = async (id: number) => {
+    if (canFetch('podcast')) {
+      const podcastResult = findPodcast(id);
+      if (podcastResult) {
+        localStorage.setItem(
+          'podcast',
+          JSON.stringify({savedDate: new Date(), podcast: podcastResult})
+        );
+      }
+    }
+
+    const savedPodcast = JSON.parse(localStorage.getItem('podcast') as string);
+
+    setPodcast(new Podcast(savedPodcast.podcast.podcast));
+
+    fetchEpisodes(id);
   };
   return {podcasts, getAllPodcasts, getPodcast, loading, podcast, podcastEpisodes};
 };
