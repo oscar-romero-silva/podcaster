@@ -1,17 +1,12 @@
-import {BrowserRouter} from 'react-router-dom';
+import {RouterProvider} from 'react-router-dom';
 import {PodcasterProvider} from '../infrastructure/PodcastContextProvider';
-import Layout from './layout/Layout';
-import Router from './router/Router';
+import router from './router/router';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Layout>
-        <PodcasterProvider>
-          <Router />
-        </PodcasterProvider>
-      </Layout>
-    </BrowserRouter>
+    <PodcasterProvider>
+      <RouterProvider router={router} />
+    </PodcasterProvider>
   );
 }
 
