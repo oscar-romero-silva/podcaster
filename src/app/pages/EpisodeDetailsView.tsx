@@ -10,11 +10,6 @@ function EpisodeDetailsView() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const htmlDecode = (content: string) => {
-    const e = document.createElement('div');
-    e.innerHTML = content;
-    return e.childNodes.length === 0 ? '' : e.childNodes[0].nodeValue;
-  };
   return (
     episode && (
       <div className="flex flex-col w-full shadow-custom mb-6 p-4 divide-y">
@@ -23,8 +18,7 @@ function EpisodeDetailsView() {
           <p
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
-              __html:
-                htmlDecode(episode.description) || 'Lo siento, este podcast no tiene descripción',
+              __html: episode.description || 'Lo siento, este podcast no tiene descripción',
             }}
           />
         </div>
