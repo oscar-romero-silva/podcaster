@@ -5,7 +5,7 @@ export function setToLocalStorage(name: string, values: object) {
 }
 
 export function getFromLocalStorage(item: string) {
-  return JSON.parse(localStorage.getItem(item) as string);
+  return JSON.parse(localStorage.getItem(item) as string) || null;
 }
 
 export function canFetch(dataToFetch: string) {
@@ -16,4 +16,10 @@ export function canFetch(dataToFetch: string) {
     return differenceInHours(actualDate, savedDate) > 24;
   }
   return true;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function errorHandler(error: any) {
+  // eslint-disable-next-line no-console
+  console.log('Error', error);
 }
