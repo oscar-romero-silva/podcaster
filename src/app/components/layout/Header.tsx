@@ -8,7 +8,7 @@ function Header() {
     <header className="flex items-center justify-between px-2 py-1 text-sky-700 shadow-custom">
       <Link to="/" className="flex gap-2">
         <img
-          src="../../../public/podcastIcon.ico"
+          src="/podcastIcon.ico"
           alt="podcaster-icon"
           width="30px"
           height="30px"

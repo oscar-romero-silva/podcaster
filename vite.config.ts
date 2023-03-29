@@ -4,9 +4,17 @@
 
 import react from '@vitejs/plugin-react';
 import {defineConfig} from 'vite';
+import compression from 'vite-plugin-compression';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    compression({
+      ext: '.js, .css, .html, .svg, .json .ts .cjs',
+      algorithm: 'gzip',
+      threshold: 10240,
+    }),
+  ],
   test: {
     globals: true,
     environment: 'jsdom',
