@@ -12,10 +12,6 @@ function PodcastsView() {
     setFilteredPodcasts([...podcasts]);
   }, [podcasts]);
 
-  useEffect(() => {
-    localStorage.removeItem('podcast');
-  }, []);
-
   const filterPodcasts = async (value: string) => {
     const searchedPodcasts = podcasts.filter(
       pod =>

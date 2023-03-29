@@ -4,14 +4,20 @@ import {IPodcastStore} from './IPodcasterStore';
 import Podcast from '@/domain/Podcast';
 import Episode from '@/domain/Episode';
 import {EpisodeResponse, PodcastResponse} from '@/api/types';
-import {canFetch, getFromLocalStorage, setToLocalStorage} from './utils';
+import {canFetch, errorHandler, getFromLocalStorage, setToLocalStorage} from './utils';
 
+type DataToSave = {
+  savedDate: Date;
+  data: PodcastResponse[] | Podcast;
+  episodes?: EpisodeResponse[] | null;
+};
 const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
   const [podcast, setPodcast] = useState<Podcast | null>(null);
   const [podcastEpisodes, setPodcastEpisodes] = useState<Episode[]>([]);
   const [episode, setEpisode] = useState<Episode | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isFetchError, setIsFetchError] = useState(false);
 
   const updateToPodcast = (podcastsResponse: PodcastResponse[]) => {
     const newPodcasts = podcastsResponse.map(p => {
@@ -25,49 +31,71 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
   };
 
   const getAllPodcasts = async () => {
-    setLoading(true);
+    setIsFetchError(false);
     if (canFetch('podcasts')) {
+      setLoading(true);
       try {
         const {data} = await api.getAllPodcasts();
-        setToLocalStorage('podcasts', {savedDate: new Date(), podcasts: data.feed.entry});
+        const dataToSave: DataToSave = {savedDate: new Date(), data: data.feed.entry};
+        setToLocalStorage('podcasts', dataToSave);
       } catch (error) {
-        throw new Error(error as string);
+        errorHandler(error);
+      } finally {
+        setLoading(false);
       }
     }
-    updateToPodcast(getFromLocalStorage('podcasts').podcasts);
-    setLoading(false);
+    updateToPodcast(getFromLocalStorage('podcasts').data);
   };
 
   const fetchEpisodes = async (id: number) => {
+    setLoading(true);
+    setIsFetchError(false);
     try {
       const {data} = await api.getPodcast(id);
       return data.results;
     } catch (error) {
-      throw new Error(error as string);
+      errorHandler(error);
+      setIsFetchError(true);
+      return null;
+    } finally {
+      setLoading(false);
     }
   };
   const getSavedEpisodes = () => {
-    return getFromLocalStorage('podcast').episodes.map((e: EpisodeResponse) => {
-      return new Episode(e);
-    });
+    return (
+      getFromLocalStorage('podcast').episodes?.map((e: EpisodeResponse) => {
+        return new Episode(e);
+      }) || []
+    );
+  };
+
+  const isSamePodcast = (id: number) => {
+    const {data} = getFromLocalStorage('podcast');
+    if (!data) {
+      return false;
+    }
+    const updateToPodcastType = new Podcast(data.podcast);
+    return id === updateToPodcastType.id;
   };
 
   const getPodcast = async (id: number) => {
-    setLoading(true);
-    if (canFetch('podcast')) {
+    setIsFetchError(false);
+    if (canFetch('podcast') || !isSamePodcast(id) || !isFetchError) {
       const episodes = await fetchEpisodes(id);
       const podcastResult = findPodcast(id);
       if (podcastResult) {
-        setToLocalStorage('podcast', {savedDate: new Date(), podcast: podcastResult, episodes});
+        const dataToSave: DataToSave = {
+          savedDate: new Date(),
+          data: podcastResult,
+          episodes,
+        };
+        setToLocalStorage('podcast', dataToSave);
       }
     }
     const savedPodcast = getFromLocalStorage('podcast');
-    setPodcast(new Podcast(savedPodcast.podcast.podcast));
-
+    setPodcast(new Podcast(savedPodcast.data.podcast));
     const savedEpisodes = getSavedEpisodes();
-
     setPodcastEpisodes(savedEpisodes);
-    setLoading(false);
   };
 
   const getEpisode = async (id: number) => {
@@ -87,6 +115,7 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
     podcastEpisodes,
     episode,
     getEpisode,
+    isFetchError,
   };
 };
 
