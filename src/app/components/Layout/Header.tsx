@@ -1,9 +1,9 @@
-import {Link, useNavigation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Indicator from './Indicator';
+import {usePodcasterContext} from '@/infrastructure/PodcastContextProvider';
 
 function Header() {
-  const navigation = useNavigation();
-
+  const {loading} = usePodcasterContext();
   return (
     <header className="flex items-center justify-between px-2 py-1 text-sky-700 shadow-custom">
       <Link to="/" className="flex gap-2">
@@ -16,7 +16,7 @@ function Header() {
         />
         <h1 className="text-xl font-bold">Podcaster</h1>
       </Link>
-      {navigation.state === 'loading' && <Indicator />}
+      {loading && <Indicator />}
     </header>
   );
 }
