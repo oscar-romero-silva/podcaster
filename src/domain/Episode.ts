@@ -19,8 +19,8 @@ export default class Episode {
     return this.episode.trackName || '';
   }
 
-  get releaseDate(): Date | string {
-    return new Date(this.episode.releaseDate) || '';
+  get releaseDate(): Date {
+    return new Date(this.episode.releaseDate);
   }
 
   get duration(): number {

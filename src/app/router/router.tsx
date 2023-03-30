@@ -1,5 +1,5 @@
 import {createBrowserRouter} from 'react-router-dom';
-import PageNotFound from '../pages/PageNotFound';
+import PageNotFound from '../layout/PageNotFound';
 import PodcastDetailsView from '../pages/PodcastDetailsView';
 import AppLayout from '../layout/AppLayout';
 import EpisodeDetailsView from '../pages/EpisodeDetailsView';

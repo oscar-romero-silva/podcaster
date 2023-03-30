@@ -5,7 +5,7 @@ import {usePodcasterContext} from '@/infrastructure/PodcastContextProvider';
 function Header() {
   const {loading} = usePodcasterContext();
   return (
-    <header className="flex items-center justify-between px-2 py-1 text-sky-700 shadow-custom">
+    <header className="flex items-center w-full z-50 justify-between px-2 py-1 text-sky-700 shadow-custom fixed top-0 left-0 bg-white">
       <Link to="/" className="flex gap-2">
         <img
           src="/podcastIcon.ico"

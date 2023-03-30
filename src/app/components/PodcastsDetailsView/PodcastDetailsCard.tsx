@@ -13,7 +13,7 @@ function PodcastCardDetails({podcast, onClick}: DetailsProp) {
         </button>
         <div className="py-4">
           <button className="flex flex-col text-start" type="button" onClick={onClick}>
-            <span className="text-md font-bold">{podcast.name}</span>
+            <h1 className="text-md font-bold">{podcast.name}</h1>
             <p className="text-sm italic">by {podcast.artist}</p>
           </button>
         </div>

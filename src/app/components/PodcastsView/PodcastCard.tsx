@@ -28,9 +28,7 @@ function PodcastCard({podcast}: PodcastCardProps) {
       </h2>
 
       <div className="flex justify-center">
-        <span className="text-lg font-medium text-gray-500 text-center">
-          Author: {podcast.artist}
-        </span>
+        <h6 className="text-lg font-medium text-gray-500 text-center">Author: {podcast.artist}</h6>
       </div>
     </Link>
   );
