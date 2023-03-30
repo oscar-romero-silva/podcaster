@@ -1,18 +1,3 @@
-import {AxiosResponse} from 'axios';
-
-type DataResponse<D> = {
-  feed: {
-    entry: D;
-  };
-};
-
-export type PodcastsApiResponse<D> = AxiosResponse<DataResponse<D>>;
-
-type EpisodeDataResponse<D> = {
-  results: D;
-};
-
-export type EpisodeApiResponse<D> = AxiosResponse<EpisodeDataResponse<D>>;
 type LabelType = {
   label: string;
 };

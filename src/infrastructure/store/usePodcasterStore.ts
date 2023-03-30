@@ -11,6 +11,7 @@ type DataToSave = {
   data: PodcastResponse[] | Podcast;
   episodes?: EpisodeResponse[] | null;
 };
+
 const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
   const [podcast, setPodcast] = useState<Podcast | null>(null);
@@ -35,8 +36,8 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
     if (canFetch('podcasts')) {
       setLoading(true);
       try {
-        const {data} = await api.getAllPodcasts();
-        const dataToSave: DataToSave = {savedDate: new Date(), data: data.feed.entry};
+        const data = await api.getAllPodcasts();
+        const dataToSave: DataToSave = {savedDate: new Date(), data};
         setToLocalStorage('podcasts', dataToSave);
       } catch (error) {
         errorHandler(error);
@@ -51,8 +52,7 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
     setLoading(true);
     setIsFetchError(false);
     try {
-      const {data} = await api.getPodcast(id);
-      return data.results;
+      return await api.getPodcast(id);
     } catch (error) {
       errorHandler(error);
       setIsFetchError(true);
@@ -83,6 +83,7 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
     if (canFetch('podcast') || !isSamePodcast(id) || !isFetchError) {
       const episodes = await fetchEpisodes(id);
       const podcastResult = findPodcast(id);
+
       if (podcastResult) {
         const dataToSave: DataToSave = {
           savedDate: new Date(),
