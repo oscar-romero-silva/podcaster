@@ -1,13 +1,15 @@
 import {Outlet} from 'react-router-dom';
 import Header from '../components/Layout/Header';
+import Loading from '../components/Loading';
+import {usePodcasterContext} from '@/infrastructure/PodcastContextProvider';
 
 function AppLayout() {
+  const {loading} = usePodcasterContext();
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="m-5 mt-20 md:m-20">
       <Header />
-      <main className="flex-1 m-5 md:m-10">
-        <Outlet />
-      </main>
+      {loading ? <Loading /> : <Outlet />}
     </div>
   );
 }
