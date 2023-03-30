@@ -1,6 +1,7 @@
 import {useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {usePodcasterContext} from '@/infrastructure/PodcastContextProvider';
+import Description from '../components/EpisodeDetailsView/Description';
 
 function EpisodeDetailsView() {
   const {episodeId} = useParams();
@@ -12,15 +13,10 @@ function EpisodeDetailsView() {
 
   return (
     episode && (
-      <div className="flex flex-col w-full shadow-custom mb-6 p-4 divide-y">
-        <div className="pb-5">
+      <div className="flex flex-col w-auto shadow-custom mb-6 p-4 divide-y">
+        <div className="max-h-[75vh] overflow-auto">
           <h1 className="text-2xl font-bold pb-2">{episode.name}</h1>
-          <p
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{
-              __html: episode.description || 'Lo siento, este podcast no tiene descripción',
-            }}
-          />
+          <Description description={episode.description} />
         </div>
         <div className="pt-5">
           {episode.episodeTrackUrl && (
