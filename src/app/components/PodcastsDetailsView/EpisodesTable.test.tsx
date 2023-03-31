@@ -1,7 +1,5 @@
 import {render, screen, fireEvent} from '@testing-library/react';
 import {vi} from 'vitest';
-import {BrowserRouter} from 'react-router-dom';
-import {PodcasterProvider} from '@/infrastructure/PodcastContextProvider';
 import EpisodesTable from './EpisodesTable';
 import {MOCKED_EPISODES} from '@/app/mocks/MockedData';
 
@@ -9,19 +7,15 @@ describe('EpisodesTable', () => {
   const onTitleClick = vi.fn();
   it('render correctly', async () => {
     render(
-      <BrowserRouter>
-        <PodcasterProvider>
-          <EpisodesTable
-            headings={[
-              {value: 'Title', id: 'name'},
-              {value: 'Date', id: 'releaseDate'},
-              {value: 'Duration', id: 'duration'},
-            ]}
-            data={MOCKED_EPISODES}
-            onTitleClick={onTitleClick}
-          />
-        </PodcasterProvider>
-      </BrowserRouter>
+      <EpisodesTable
+        headings={[
+          {value: 'Title', id: 'name'},
+          {value: 'Date', id: 'releaseDate'},
+          {value: 'Duration', id: 'duration'},
+        ]}
+        data={MOCKED_EPISODES}
+        onTitleClick={onTitleClick}
+      />
     );
 
     const titles = screen.getAllByRole('button');

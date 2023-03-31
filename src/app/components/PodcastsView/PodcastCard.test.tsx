@@ -3,15 +3,12 @@ import {BrowserRouter} from 'react-router-dom';
 import PodcastCard from './PodcastCard';
 import Podcast from '@/domain/Podcast';
 import {MOCKED_PODCASTS} from '@/app/mocks/MockedData';
-import {PodcasterProvider} from '@/infrastructure/PodcastContextProvider';
 
 describe('PodcastCard', () => {
   it('render correctly', () => {
     render(
       <BrowserRouter>
-        <PodcasterProvider>
-          <PodcastCard podcast={MOCKED_PODCASTS[0] as Podcast} />
-        </PodcasterProvider>
+        <PodcastCard podcast={MOCKED_PODCASTS[0] as Podcast} />
       </BrowserRouter>
     );
 

@@ -1,22 +1,14 @@
 import {render, screen} from '@testing-library/react';
-import {BrowserRouter} from 'react-router-dom';
 import {vi} from 'vitest';
 import PodcastCardDetails from './PodcastDetailsCard';
 import Podcast from '@/domain/Podcast';
 import {MOCKED_PODCASTS} from '@/app/mocks/MockedData';
-import {PodcasterProvider} from '@/infrastructure/PodcastContextProvider';
 
 describe('PodcastCardDetails', () => {
   const onClick = vi.fn();
 
   it('render correctly', () => {
-    render(
-      <BrowserRouter>
-        <PodcasterProvider>
-          <PodcastCardDetails podcast={MOCKED_PODCASTS[0] as Podcast} onClick={onClick} />
-        </PodcasterProvider>
-      </BrowserRouter>
-    );
+    render(<PodcastCardDetails podcast={MOCKED_PODCASTS[0] as Podcast} onClick={onClick} />);
 
     const img = screen.getByRole('img');
     expect(img).toBeInTheDocument();

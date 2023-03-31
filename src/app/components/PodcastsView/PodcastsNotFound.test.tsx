@@ -1,17 +1,9 @@
 import {render, screen} from '@testing-library/react';
-import {BrowserRouter} from 'react-router-dom';
-import {PodcasterProvider} from '@/infrastructure/PodcastContextProvider';
 import PodcastsNotFound from './PodcastsNotFound';
 
 describe('PodcastsNotFound', () => {
   it('render correctly', () => {
-    render(
-      <BrowserRouter>
-        <PodcasterProvider>
-          <PodcastsNotFound />
-        </PodcasterProvider>
-      </BrowserRouter>
-    );
+    render(<PodcastsNotFound />);
 
     const heading = screen.getByRole('heading', {level: 1});
     expect(heading).toBeInTheDocument();
