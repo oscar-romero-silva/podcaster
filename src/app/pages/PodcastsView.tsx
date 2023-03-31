@@ -1,25 +1,9 @@
-import {useEffect, useState} from 'react';
+import useFilterPodcast from '@/infrastructure/hooks/useFilterPodcasts';
 import PodcastCard from '../components/PodcastsView/PodcastCard';
-import {usePodcasterContext} from '../../infrastructure/PodcastContextProvider';
 import PodcastsNotFound from '../components/PodcastsView/PodcastsNotFound';
-import Podcast from '@/domain/Podcast';
 
 function PodcastsView() {
-  const {podcasts} = usePodcasterContext();
-  const [filteredPodcasts, setFilteredPodcasts] = useState<Podcast[]>([]);
-
-  useEffect(() => {
-    setFilteredPodcasts([...podcasts]);
-  }, [podcasts]);
-
-  const filterPodcasts = async (value: string) => {
-    const searchedPodcasts = podcasts.filter(
-      pod =>
-        pod.artist.toLowerCase().includes(value.toLowerCase()) ||
-        pod.name.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredPodcasts(searchedPodcasts);
-  };
+  const {filteredPodcasts, filterPodcasts} = useFilterPodcast();
 
   return (
     <div>
