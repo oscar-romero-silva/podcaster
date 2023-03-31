@@ -2,6 +2,7 @@ import {render} from '@testing-library/react';
 import {act} from 'react-dom/test-utils';
 import {vi} from 'vitest';
 import {useEffect} from 'react';
+import {RecoilRoot} from 'recoil';
 import {PodcasterProvider, usePodcasterContext} from '../PodcastContextProvider';
 import {IPodcastStore} from '../store/IPodcasterStore';
 
@@ -24,9 +25,11 @@ function TestComponent() {
 
 const renderContainer = () =>
   render(
-    <PodcasterProvider>
-      <TestComponent />
-    </PodcasterProvider>
+    <RecoilRoot>
+      <PodcasterProvider>
+        <TestComponent />
+      </PodcasterProvider>
+    </RecoilRoot>
   );
 describe('PodcasterProvider', () => {
   beforeEach(async () => {

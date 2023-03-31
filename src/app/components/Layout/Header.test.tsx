@@ -1,4 +1,5 @@
 import {render, screen} from '@testing-library/react';
+import {RecoilRoot} from 'recoil';
 import {BrowserRouter} from 'react-router-dom';
 import {PodcasterProvider} from '@/infrastructure/PodcastContextProvider';
 import Header from './Header';
@@ -7,9 +8,11 @@ describe('Header', () => {
   it('render correctly', () => {
     render(
       <BrowserRouter>
-        <PodcasterProvider>
-          <Header />
-        </PodcasterProvider>
+        <RecoilRoot>
+          <PodcasterProvider>
+            <Header />
+          </PodcasterProvider>
+        </RecoilRoot>
       </BrowserRouter>
     );
 

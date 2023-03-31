@@ -33,7 +33,7 @@ describe('utils helpers', () => {
     it('Should return if we can fetch or not', () => {
       const dataToSave = {
         data: 'test',
-        savedDate: '2023-03-30T09:00:41.428Z',
+        savedDate: new Date(),
       };
       setToLocalStorage('test', dataToSave);
 
