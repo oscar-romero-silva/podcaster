@@ -16,7 +16,9 @@ function EpisodeDetailsView() {
       <div className="flex flex-col w-auto shadow-custom mb-6 p-4 divide-y">
         <div className="max-h-[75vh] overflow-auto">
           <h1 className="text-2xl font-bold pb-2">{episode.name}</h1>
-          <Description description={episode.description} />
+          <Description
+            description={episode?.description || 'Lo siento este episodio no tiene descripción'}
+          />
         </div>
         <div className="pt-5">
           {episode.episodeTrackUrl && (

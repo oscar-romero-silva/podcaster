@@ -5,6 +5,7 @@ import Podcast from '@/domain/Podcast';
 import Episode from '@/domain/Episode';
 import {EpisodeResponse, PodcastResponse} from '@/api/types';
 import {canFetch, errorHandler, getFromLocalStorage, setToLocalStorage} from './utils';
+import useLoading from '../hooks/useLoading';
 
 type DataToSave = {
   savedDate: Date;
@@ -17,8 +18,9 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
   const [podcast, setPodcast] = useState<Podcast | null>(null);
   const [podcastEpisodes, setPodcastEpisodes] = useState<Episode[]>([]);
   const [episode, setEpisode] = useState<Episode | null>(null);
-  const [loading, setLoading] = useState(false);
   const [isFetchError, setIsFetchError] = useState(false);
+
+  const {updateLoading} = useLoading();
 
   const updateToPodcast = (podcastsResponse: PodcastResponse[]) => {
     const newPodcasts = podcastsResponse.map(p => {
@@ -34,7 +36,7 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
   const getAllPodcasts = async () => {
     setIsFetchError(false);
     if (canFetch('podcasts')) {
-      setLoading(true);
+      updateLoading(true);
       try {
         const data = await api.getAllPodcasts();
         const dataToSave: DataToSave = {savedDate: new Date(), data};
@@ -42,14 +44,14 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
       } catch (error) {
         errorHandler(error);
       } finally {
-        setLoading(false);
+        updateLoading(false);
       }
     }
     updateToPodcast(getFromLocalStorage('podcasts').data);
   };
 
   const fetchEpisodes = async (id: number) => {
-    setLoading(true);
+    updateLoading(true);
     setIsFetchError(false);
     try {
       return await api.getPodcast(id);
@@ -58,7 +60,7 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
       setIsFetchError(true);
       return null;
     } finally {
-      setLoading(false);
+      updateLoading(false);
     }
   };
   const getSavedEpisodes = () => {
@@ -100,18 +102,15 @@ const usePodcasterStore = (api: IPodcasterApi): IPodcastStore => {
   };
 
   const getEpisode = async (id: number) => {
-    setLoading(true);
     const savedEpisodes = getSavedEpisodes();
     const findEpisode = savedEpisodes.find((e: Episode) => e.id === id) || null;
     setEpisode(findEpisode);
-    setLoading(false);
   };
 
   return {
     podcasts,
     getAllPodcasts,
     getPodcast,
-    loading,
     podcast,
     podcastEpisodes,
     episode,

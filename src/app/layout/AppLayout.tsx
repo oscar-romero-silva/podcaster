@@ -1,15 +1,20 @@
 import {Outlet} from 'react-router-dom';
+import {useEffect} from 'react';
 import Header from '../components/Layout/Header';
-import Loading from '../components/Loading';
 import {usePodcasterContext} from '@/infrastructure/PodcastContextProvider';
 
 function AppLayout() {
-  const {loading} = usePodcasterContext();
+  const {getAllPodcasts} = usePodcasterContext();
+
+  useEffect(() => {
+    getAllPodcasts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="m-5 mt-20 md:m-20">
       <Header />
-      {loading ? <Loading /> : <Outlet />}
+      <Outlet />
     </div>
   );
 }

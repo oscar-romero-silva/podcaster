@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useContext, useEffect, useRef} from 'react';
+import {createContext, ReactNode, useContext, useMemo, useRef} from 'react';
 import {IPodcastStore} from './store/IPodcasterStore';
 import PodcasterApi from '../api/PodcasterApi';
 import usePodcasterStore from './store/usePodcasterStore';
@@ -15,12 +15,11 @@ function PodcasterProvider({children}: ContextProviderProps) {
   const podcasterApi = useRef(new PodcasterApi());
   const store = usePodcasterStore(podcasterApi.current);
 
-  useEffect(() => {
-    store.getAllPodcasts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const ctxMemo = useMemo(() => {
+    return store;
+  }, [store]);
 
-  return <PodcasterContext.Provider value={store}>{children}</PodcasterContext.Provider>;
+  return <PodcasterContext.Provider value={ctxMemo}>{children}</PodcasterContext.Provider>;
 }
 
 const usePodcasterContext = () => {
