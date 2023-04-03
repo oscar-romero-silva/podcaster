@@ -1,6 +1,6 @@
 # Podcaster
 
-Mini-application to listen to music podcasts.
+Mini-application to listen podcasts.
 
 ## Main used Libraries
 
@@ -16,7 +16,7 @@ Mini-application to listen to music podcasts.
 
 ## Install
 
-To install the project do:
+#### `To install the project do:`
 
 ```
 yarn
