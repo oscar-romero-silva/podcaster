@@ -6,8 +6,6 @@ export interface IPodcastStore {
 
   readonly podcast: Podcast | null;
 
-  // readonly loading: boolean;
-
   readonly isFetchError: boolean;
 
   readonly podcastEpisodes: Episode[];
