@@ -2,6 +2,8 @@
 
 Mini-application to listen podcasts.
 
+🚀 Deployed [https://podcaster-lilac.vercel.app/](https://podcaster-lilac.vercel.app/)
+
 ## Main used Libraries
 
 - [React Router Dom](https://reactrouter.com/en/main) for routing.
