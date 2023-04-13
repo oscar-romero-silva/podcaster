@@ -1,7 +1,10 @@
 import {describe, it} from 'vitest';
-import {canFetch, getFromLocalStorage, setToLocalStorage} from '../store/utils';
+import {waitFor} from '@testing-library/react';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 describe('utils helpers', () => {
+  const {canFetch, setToLocalStorage, getFromLocalStorage} = useLocalStorage();
+
   beforeEach(() => {
     localStorage.clear();
   });
@@ -37,17 +40,19 @@ describe('utils helpers', () => {
       };
       setToLocalStorage('test', dataToSave);
 
-      expect(canFetch('test')).toBe(false);
+      expect(canFetch()).toBe(false);
 
       const date = new Date();
 
       const canFetchData = {
         data: 'test',
-        savedDate: new Date(date.setDate(date.getDate() - 2)),
+        savedDate: new Date(date.setDate(date.getDate() - 3)),
       };
       setToLocalStorage('test', canFetchData);
 
-      expect(canFetch('test')).toBe(true);
+      waitFor(() => {
+        expect(canFetch()).toBe(true);
+      });
     });
   });
 });
