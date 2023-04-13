@@ -23,7 +23,7 @@ function PodcastDetailsLayout() {
 
   return !loading ? (
     <div className="flex flex-col lg:flex-row h-screen gap-y-10 lg:gap-20">
-      <div className="lg:w-1/5 w-full min-w-[300px]">
+      <div className={`lg:w-1/5 w-full min-w-[300px] ${location && 'pointer-events-none'}`}>
         <PodcastCardDetails podcast={podcast} onClick={() => navigateBack()} />
       </div>
       <div className="lg:w-4/5 w-full h-auto min-w-[300px]">
